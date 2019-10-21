@@ -1,6 +1,6 @@
 {
   "projects": {
-    "prod": "red-hub",
-    "dev": "redhub-app"
+    "production": "red-hub",
+    "staging": "redhub-app"
   }
 }

@@ -9,24 +9,24 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 jobs:
   include:
-    - stage: deploy to dev
+    - stage: deploy to staging
       script:
         - yarn global add @angular/cli
-        - ng build --configuration=dev
+        - ng build --configuration=staging
       deploy:
         provider: firebase
-        project: dev
+        project: staging
         token:
           secure: $FIREBASE_TOKEN
         on:
           branch: master
-    - stage: deploy to prod
+    - stage: deploy to production
       script:
         - yarn global add @angular/cli
-        - ng build --prod
+        - ng build --configuration=production
       deploy:
         provider: firebase
-        project: prod
+        project: production
         token:
           secure: $FIREBASE_TOKEN
         on:
