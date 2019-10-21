@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "red-hub"
+    "prod": "red-hub",
+    "dev": "redhub-app"
   }
 }

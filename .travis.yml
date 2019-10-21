@@ -1,21 +1,34 @@
 sudo: required
 language: node_js
 node_js:
-  - 12
-branches:
-  only:
-    - master
+  - "12"
 cache:
   yarn: true
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.19.1
   - export PATH="$HOME/.yarn/bin:$PATH"
-before_script:
-  - yarn global add @angular/cli
-script:
-  - ng build --prod
-deploy:
-  skip_cleanup: true
-  provider: firebase
-  token:
-    secure: $FIREBASE_TOKEN
+jobs:
+  include:
+    - stage: deploy to dev
+      script:
+        - yarn global add @angular/cli
+        - ng build --configuration=dev
+      deploy:
+        provider: firebase
+        project: dev
+        token:
+          secure: $FIREBASE_TOKEN
+        on:
+          branch: master
+    - stage: deploy to prod
+      script:
+        - yarn global add @angular/cli
+        - ng build --prod
+      deploy:
+        provider: firebase
+        project: prod
+        token:
+          secure: $FIREBASE_TOKEN
+        on:
+          branch: master
+          tags: true
