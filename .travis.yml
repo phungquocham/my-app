@@ -19,8 +19,6 @@ jobs:
         project: staging
         token:
           secure: $FIREBASE_TOKEN
-        on:
-          branch: master
     - stage: deploy to production
       script:
         - yarn global add @angular/cli
@@ -31,6 +29,8 @@ jobs:
         project: production
         token:
           secure: $FIREBASE_TOKEN
-        on:
-          branch: master
-          tags: true
+stages:
+  - name: deploy to staging
+    if: branch = staging
+  - name: deploy to production
+    if: branch = master
