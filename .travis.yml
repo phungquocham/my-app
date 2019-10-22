@@ -26,4 +26,4 @@ stages:
   - name: deploy to staging
     if: branch = master
   - name: deploy to production
-    if: branch = master AND tag IS present
+    if: branch = master
