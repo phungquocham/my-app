@@ -9,7 +9,7 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 jobs:
   include:
-    - stage: deploy to staging
+    - stage: staging
       script:
         - yarn global add @angular/cli
         - ng build --configuration=staging
@@ -19,7 +19,7 @@ jobs:
         project: staging
         token:
           secure: $FIREBASE_TOKEN
-    - stage: deploy to production
+    - stage: production
       script:
         - yarn global add @angular/cli
         - ng build --configuration=production
@@ -30,7 +30,7 @@ jobs:
         token:
           secure: $FIREBASE_TOKEN
 stages:
-  - name: deploy to staging
-    if: branch = staging
-  - name: deploy to production
+  - name: staging
     if: branch = master
+  - name: production
+    if: branch = master AND tag =~ ^v
