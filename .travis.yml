@@ -24,6 +24,6 @@ jobs:
           secure: $FIREBASE_TOKEN
 stages:
   - name: deploy to staging
-    if: branch = "master1"
+    if: branch = master1
   - name: deploy to production
-    if: branch = "master" AND tag IS present
+    if: tag IS present
